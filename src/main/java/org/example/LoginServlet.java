@@ -13,7 +13,7 @@ public class LoginServlet extends HttpServlet {
         String pw = request.getParameter("userPw");
 
         if ("admin".equals(id) && "1234".equals(pw)) {
-            response.sendRedirect("jsp/boardList.jsp");
+            response.sendRedirect(request.getContextPath() + "/jsp/boardList.jsp");
         } else {
             response.getWriter().println("로그인 실패");
         }
