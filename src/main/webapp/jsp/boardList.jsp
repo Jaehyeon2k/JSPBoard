@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jaehyeon
-  Date: 25. 5. 13.
-  Time: 오전 10:51
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*, java.text.*" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +8,27 @@
     <title>게시판 목록</title>
 </head>
 <body>
+
+<%
+    HttpSession mySession = request.getSession(false);  // ✔ 중복 방지
+    String userId = null;
+
+    if (mySession != null) {
+        userId = (String) mySession.getAttribute("userId");
+    }
+
+    if (userId == null) {
+        response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+        return;
+    }
+%>
+
+<!-- 환영 메시지 및 로그아웃 -->
+<p>
+    👋 <%= userId %> 님 환영합니다!
+    | <a href="<%= request.getContextPath() %>/logout">로그아웃</a>
+</p>
+
 <h1>📋 게시판 목록</h1>
 
 <table border="1" cellpadding="10">
